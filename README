@@ -1,0 +1,23 @@
+AS3-Routers aims to simplify event driven programming, yet is more powerful than the traditional approach of using addEventListener.
+After many years of working with EventDispatcher directly, I have come to realize the existance of three major shortcomings:
+
+1) It's entirely too much work to remove all of your event listeners
+Explanation: If you're destructing a class with 5 event listeners, you will have to manually remove each of those 5 listeners, using different code for each one.
+
+2) Sometimes you want to bundle additional parameters into an event listener.
+Explanation: If you have two buttons that each navigate to a different URL, traditionally this would require 2 different event listeners rather than a single navToURL function.
+
+3) Passing an event reference to your listener Function can be cluttering or problematic.
+Explanation: If your listener doesn't need any parameters, then EventDispatcher shouldn't force you to include one.
+More importantly, if you want to programatically invoke that same function elsewhere, it shouldn't prompt you to pass in an event parameter!
+
+AS3-Routers accounts for all three of these issues.
+
+I apologize for the brevity of the follow example, but more thorough documentation is available elsewhere.
+// Create two new event listeners for a Mouse Click, passing a different URL to a listener function, depending on which button was clicked
+_eventRouters = [new EventRouter(button1, MouseEvent.CLICK, navigateToURL, false, "http://slashdot.org"),
+				 new EventRouter(button2, MouseEvent.CLICK, navigateToURL, false, "http://www.fark.com")];
+// Remove all event listeners at once
+for each (var eventRouter : EventRouter in _eventRouters) {
+	eventRouter.deactivate();
+}
